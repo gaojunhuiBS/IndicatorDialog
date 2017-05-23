@@ -61,6 +61,11 @@ public class TriangleDrawable extends Drawable {
             path.lineTo(bound.right, bound.bottom);
             path.close();
 
+        } else {
+            path.moveTo(0, 0);
+            path.lineTo(bound.right, bound.bottom);
+            path.lineTo(0, bound.bottom);
+            path.close();
         }
         return path;
 

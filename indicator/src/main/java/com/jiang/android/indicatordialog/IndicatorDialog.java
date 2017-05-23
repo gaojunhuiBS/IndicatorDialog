@@ -44,6 +44,7 @@ public class IndicatorDialog {
     private int mRadiusHeight;
     private int mWidth;
     private View arrowLeft;
+    private View arrowRight;
 
     public static IndicatorDialog newInstance(Activity context, IndicatorBuilder builder) {
         IndicatorDialog dialog = new IndicatorDialog(context, builder);
@@ -81,12 +82,24 @@ public class IndicatorDialog {
         else if (mBuilder.arrowdirection == LEFT) {
             addLeftArrow2LinearLayout();
         }
-        addRecyclerView2RecyclerView();
+        addRecyclerView2LinearLayout();
 
+        if (mBuilder.arrowdirection == RIGHT) {
+            addRightArrow2LinearLayout();
+        }
 
         mDialog.setContentView(rootLayout);
         setSize2Dialog(mBuilder.height);
 
+    }
+
+    private void addRightArrow2LinearLayout() {
+        arrowRight = new View(mContext);
+        rootLayout.addView(arrowRight);
+        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) arrowRight.getLayoutParams();
+        layoutParams.width = arrowWidth;
+        layoutParams.height = arrowWidth;
+        arrowRight.setLayoutParams(layoutParams);
     }
 
     private void addTopArrow2LinearLayout() {
@@ -111,7 +124,7 @@ public class IndicatorDialog {
     /**
      * modify recyclerview state
      */
-    private void addRecyclerView2RecyclerView() {
+    private void addRecyclerView2LinearLayout() {
         childLayout = (LinearLayout) LayoutInflater.from(mContext).inflate(R.layout.dialog_layout, rootLayout, true);
 
         recyclerView = (RecyclerView) childLayout.findViewById(R.id.j_dialog_rv);
@@ -218,6 +231,13 @@ public class IndicatorDialog {
             TriangleDrawable drawable = new TriangleDrawable(mBuilder.arrowdirection, mBuilder.bgColor);
             drawable.setBounds(arrowLeft.getLeft(), arrowLeft.getTop(), arrowLeft.getRight(), arrowLeft.getBottom());
             arrowLeft.setBackgroundDrawable(drawable);
+        } else if (mBuilder.arrowdirection == RIGHT) {
+            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) arrowRight.getLayoutParams();
+            layoutParams.topMargin = (int) (result * mBuilder.arrowercentage) - arrowWidth / 2;
+            arrowRight.setLayoutParams(layoutParams);
+            TriangleDrawable drawable = new TriangleDrawable(mBuilder.arrowdirection, mBuilder.bgColor);
+            drawable.setBounds(arrowRight.getLeft(), arrowRight.getTop(), arrowRight.getRight(), arrowRight.getBottom());
+            arrowRight.setBackgroundDrawable(drawable);
         }
         if (mBuilder.arrowdirection == IndicatorBuilder.BOTTOM) {
             RelativeLayout.LayoutParams params1 = (RelativeLayout.LayoutParams) recyclerView.getLayoutParams();
@@ -300,7 +320,13 @@ public class IndicatorDialog {
         recyclerView.setAdapter(mBuilder.mAdapter);
 
 
+
+
+
         setDialogPosition(x, y);
+
+
+
         mDialog.show();
     }
 

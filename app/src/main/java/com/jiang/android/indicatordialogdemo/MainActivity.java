@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView mBottom2;
     private ImageView mBottom1;
     private ImageView mLeftCenter;
+    private ImageView mRightCenter;
 
 
     @Override
@@ -89,6 +90,77 @@ public class MainActivity extends AppCompatActivity {
                 initLeftCenterDialog(v);
             }
         });
+
+        mRightCenter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                initRightCenterDialog(v);
+            }
+        });
+    }
+
+    private void initRightCenterDialog(View v) {
+        mLists.clear();
+        mICons.clear();
+        mLists.add("创建群聊");
+        mICons.add(R.drawable.ic_chat_bubble_outline_black_24dp_white);
+        mLists.add("加好友");
+        mICons.add(R.drawable.ic_child_friendly_black_24dp_white);
+        mLists.add("扫一扫");
+        mICons.add(R.drawable.ic_settings_bluetooth_black_24dp_white);
+        mLists.add("面对面快传");
+        mICons.add(R.drawable.ic_autorenew_black_24dp_white);
+        mLists.add("付款");
+        mICons.add(R.drawable.ic_monetization_on_black_24dp_white);
+        mLists.add("拍摄");
+        mICons.add(R.drawable.ic_camera_black_24dp_white);
+        mLists.add("面对面红包");
+        mICons.add(R.drawable.ic_attach_money_black_24dp_white);
+        Resources resources = getResources();
+        DisplayMetrics dm = resources.getDisplayMetrics();
+        int height = dm.heightPixels;
+        IndicatorDialog dialog = new IndicatorBuilder(this)
+                .width(500)
+                .height((int) (height * 0.5))
+                .ArrowDirection(IndicatorBuilder.RIGHT)
+                .gravity(IndicatorBuilder.GRAVITY_RIGHT)
+                .radius(8)
+                .ArrowRectage(0.3f)
+                .layoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false))
+                .adapter(new BaseAdapter() {
+                    @Override
+                    public void onBindView(BaseViewHolder holder, int position) {
+                        TextView tv = holder.getView(R.id.item_add);
+                        tv.setText(mLists.get(position));
+                        tv.setCompoundDrawablesWithIntrinsicBounds(mICons.get(position), 0, 0, 0);
+
+                        if (position == mLists.size() - 1) {
+                            holder.setVisibility(R.id.item_line, BaseViewHolder.GONE);
+                        } else {
+                            holder.setVisibility(R.id.item_line, BaseViewHolder.VISIBLE);
+
+                        }
+                    }
+
+                    @Override
+                    public int getLayoutID(int position) {
+                        return R.layout.item;
+                    }
+
+                    @Override
+                    public boolean clickable() {
+                        return false;
+                    }
+
+                    @Override
+                    public int getItemCount() {
+                        return mLists.size();
+                    }
+                }).create();
+
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.show(v, 100, 0);
+
     }
 
     private void initLeftCenterDialog(View v) {
@@ -352,7 +424,9 @@ public class MainActivity extends AppCompatActivity {
         mBottom2 = $(R.id.activity_add_bottom_2);
         mBottom3 = $(R.id.activity_add_bottom_3);
         mLeftCenter = $(R.id.activity_add_center_left);
+        mRightCenter = $(R.id.activity_add_center_right);
         mAdd.setClickable(true);
+        mRightCenter.setClickable(true);
         mLeftCenter.setClickable(true);
         mAddLeft.setClickable(true);
         mAddCenter.setClickable(true);

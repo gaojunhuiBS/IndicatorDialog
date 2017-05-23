@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
                 .ArrowDirection(IndicatorBuilder.RIGHT)
                 .gravity(IndicatorBuilder.GRAVITY_RIGHT)
                 .radius(8)
-                .ArrowRectage(0.3f)
+                .ArrowRectage(0.5f)
                 .layoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false))
                 .adapter(new BaseAdapter() {
                     @Override

@@ -57,14 +57,13 @@ public class TriangleDrawable extends Drawable {
 
         } else if (arrowDirection == LEFT) {
             path.moveTo(bound.right / 2, bound.bottom / 2);
-            path.lineTo(bound.right, 0);
+            path.lineTo(bound.right, bound.top);
             path.lineTo(bound.right, bound.bottom);
             path.close();
-
         } else {
-            path.moveTo(0, 0);
-            path.lineTo(bound.right, bound.bottom);
-            path.lineTo(0, bound.bottom);
+            path.moveTo(bound.left, bound.top);
+            path.lineTo(bound.right / 2, bound.bottom / 2);
+            path.lineTo(bound.left, bound.bottom);
             path.close();
         }
         return path;

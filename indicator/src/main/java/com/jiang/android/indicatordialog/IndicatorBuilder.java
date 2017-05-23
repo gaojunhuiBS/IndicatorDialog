@@ -79,9 +79,6 @@ public class IndicatorBuilder {
     }
 
     public IndicatorBuilder ArrowRectage(float rectage) {
-        if (rectage > 1) {
-            new Exception("rectage can not >= 1");
-        }
         this.arrowercentage = rectage;
         return this;
     }
